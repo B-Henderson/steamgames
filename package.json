@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.17.2",
+    "async": "^2.5.0",
+    "body-parser": "^1.18.1",
     "express": "^4.15.3",
+    "nodemon": "^1.12.1",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
