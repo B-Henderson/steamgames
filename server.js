@@ -7,95 +7,73 @@ const bodyParser = require('body-parser');
 const async = require("async");
 const youtubeKey = process.env.YOUTUBE_APIKEY;
 const twitchKey = process.env.TWITCH_APIKEY;
+const mapJSON = require(__dirname + "/scripts/mapJSON");
+const getApp = require(__dirname + "/scripts/getRandomApp");
+const extendObj = require(__dirname+"/scripts/extendObj");
+const gd = require(__dirname + "/scripts/gameData");
 
+
+//use urlencoded parsing for the post requests
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 
-function extend(obj, src) {
-    Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
-    return obj;
-}
-
-
-
-//take the json data and get a random application from it
-var getRandomApp = function(games, callback) {
-    let randomApp = games.response.games.length ? Math.floor(Math.random() * (games.response.games.length - 1)) : null;
-    if (callback) {
-        callback(games.response.games[randomApp]);
-    }
-    return;
-}
-var step3 = function(games) {
-
-};
-
-
-const getGameData = function(url, callback) {
-    console.log('URLS: ',url);
-    const options = {
-        url: url,
-        json: true
-    };
-    
-    request.get(url, function(err, res, body) {
-        callback(err, body);
-    })
-
-}
-
+//base url / on get return webpage (NYI)
+//post retrieve the data from the apis
 app.route('/')
     .get(function(req, res) {
         res.status(200).send('Hello World!');
     })
     .post(function(req, res) {
+        //initialize the return object
         let gameData = {
             'mediaContent': []
-        }
+        };
         let userid = req.body;
+        // variable to store the steam url for 
         const steamUrl = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + apikey + '&include_appinfo=1&steamid=' + userid.steamid + '&format=json';
+        
         request
             .get(steamUrl, function(err, response, body) {
+                //throw an error if the steam id cannot be found
                 if (err) throw err;
+                
                 if (!err && response.statusCode === 200) {
                     let locals = JSON.parse(body);
 
-                    getRandomApp(locals, function(games) {
+                    getApp.getRandomApp(locals, function(games) {
+                        // the api urls to call with the return data from steam api\
                         let urls = [
                             'http://store.steampowered.com/api/appdetails?appids=' + games.appid,
                             'https://content.googleapis.com/youtube/v3/search?q=' + games.name + '&maxResults=2&part=snippet&key=' + youtubeKey,
                             'https://api.twitch.tv/kraken/streams/?game=' + games.name + '&limit=2&client_id=' + twitchKey
                             
                         ];
-                        gameData = extend(gameData, games);
-                        // console.log(urls);
-
-                        async.map(urls, getGameData, function(err, results) {
-                            // console.log(results, 'test');
+                        //extend the gameData object with the return data
+                        gameData = extendObj.extend(gameData, games);
+                        //using the async library make multiple calls to the urls above and execute them using functions in the gameData.js file
+                        //with the return data add them to the mediaContent array and return the json
+                        async.map(urls, gd.getGameData, function(err, results) {
+                            if (err) throw err;
                             for(let i=0; i<results.length; i++){
                                 gameData.mediaContent.push(JSON.parse(results[i]));
                             }
                             res.json(gameData);
-                            // res.json('hello world');
-                        })
+                        });
                     });
                 }
             });
-        var returnResults = function(game) {
-            res.json(game);
-        };
-    })
+    });
 
 app.route('/google60c020d4bb10c34d.html')
     .get(function(req, res){
         res.sendFile(__dirname + '/google60c020d4bb10c34d.html');
-    })
+    });
 
 
 
 
 app.listen(8080, function() {
     console.log('initialised on port 8080');
-})
+});
