@@ -56,16 +56,20 @@ app.route('/')
                         //with the return data add them to the mediaContent array and return the json
                         async.map(urls, gd.getGameData, function(err, results) {
                             if (err) throw err;
+                            
                             for(let i=0; i<results.length; i++){
                                 gameData.mediaContent.push(JSON.parse(results[i]));
                             }
-                            res.json(gameData);
+                            
+                            res.json(gd.mapData(gameData, games.appid));
                         });
                     });
                 }
             });
     });
 
+
+//test route for google api
 app.route('/google60c020d4bb10c34d.html')
     .get(function(req, res){
         res.sendFile(__dirname + '/google60c020d4bb10c34d.html');
