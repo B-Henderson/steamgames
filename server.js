@@ -7,16 +7,19 @@ const bodyParser = require('body-parser');
 const async = require("async");
 const youtubeKey = process.env.YOUTUBE_APIKEY;
 const twitchKey = process.env.TWITCH_APIKEY;
-const mapJSON = require(__dirname + "/scripts/mapJSON");
+
 const getApp = require(__dirname + "/scripts/getRandomApp");
 const extendObj = require(__dirname+"/scripts/extendObj");
 const gd = require(__dirname + "/scripts/gameData");
 
 
 //use urlencoded parsing for the post requests
+app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 
 
 //base url / on get return webpage (NYI)
@@ -27,6 +30,7 @@ app.route('/')
     })
     .post(function(req, res) {
         //initialize the return object
+        
         let gameData = {
             'mediaContent': []
         };
@@ -41,7 +45,7 @@ app.route('/')
                 
                 if (!err && response.statusCode === 200) {
                     let locals = JSON.parse(body);
-
+                    
                     getApp.getRandomApp(locals, function(games) {
                         // the api urls to call with the return data from steam api\
                         let urls = [
@@ -60,7 +64,6 @@ app.route('/')
                             for(let i=0; i<results.length; i++){
                                 gameData.mediaContent.push(JSON.parse(results[i]));
                             }
-                            
                             res.json(gd.mapData(gameData, games.appid));
                         });
                     });
@@ -77,7 +80,7 @@ app.route('/google60c020d4bb10c34d.html')
 
 
 
-
+//create a server and listen to port 8080
 app.listen(8080, function() {
     console.log('initialised on port 8080');
 });
