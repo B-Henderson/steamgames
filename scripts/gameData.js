@@ -16,9 +16,12 @@ exports.getGameData = function(url, callback) {
 
 };
 
+
+//build the object to be returned as we dont need all the data in the original returns
 exports.mapData = function(data, gameId) {
-    
-    let returnobj = {
+    let returnobj = {};
+    if(data){
+    returnobj = {
         'gameId': data.mediaContent[0][gameId].data.steam_appid ? data.mediaContent[0][gameId].data.steam_appid : '',
         'gameName': data.mediaContent[0][gameId].data.name ? data.mediaContent[0][gameId].data.name : '',
         'detailedDescription': data.mediaContent[0][gameId].data.name ? data.mediaContent[0][gameId].data.name : '',
@@ -29,7 +32,7 @@ exports.mapData = function(data, gameId) {
         'genres' : data.mediaContent[0][gameId].data.genres ? data.mediaContent[0][gameId].data.genres : '',
         'screenshots': data.mediaContent[0][gameId].data.screenshots ? data.mediaContent[0][gameId].data.screenshots : '',
         'youtubeVideos': [],
-        'steams': []
+        'streams': []
     };
     
     for(let i=0;i<data.mediaContent[1].items.length;i++){
@@ -42,7 +45,14 @@ exports.mapData = function(data, gameId) {
         };
     }    
     
-    
+    for(let j=0;j<data.mediaContent[2].streams.length;j++){
+        returnobj.streams[j] = {
+            'preview': data.mediaContent[2].streams[j].preview ? data.mediaContent[2].streams[j].preview : '',
+            'viewers': data.mediaContent[2].streams[j].viewers ? data.mediaContent[2].streams[j].viewers : '',
+            'channel': data.mediaContent[2].streams[j].channel ? data.mediaContent[2].streams[j].channel : ''
+        };
+    }
+    }
     
     return returnobj; 
 }
