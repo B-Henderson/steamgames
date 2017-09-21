@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const async = require("async");
 const youtubeKey = process.env.YOUTUBE_APIKEY;
 const twitchKey = process.env.TWITCH_APIKEY;
-
+var port = process.env.PORT || 8080;
 const getApp = require(__dirname + "/scripts/getRandomApp");
 const extendObj = require(__dirname+"/scripts/extendObj");
 const gd = require(__dirname + "/scripts/gameData");
@@ -80,7 +80,7 @@ app.route('/google60c020d4bb10c34d.html')
 
 
 
-//create a server and listen to port 80
-app.listen(80, function() {
-    console.log('initialised on port 80');
+//create a server and listen to port
+app.listen(port, function() {
+    console.log('initialised on port ' + port);
 });
