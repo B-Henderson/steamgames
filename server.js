@@ -37,12 +37,12 @@ app.route('/')
         let userid = req.body;
         // variable to store the steam url for 
         const steamUrl = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + apikey + '&include_appinfo=1&steamid=' + userid.steamid + '&format=json';
-        console.log('HERE FIRST', userid);
+        
         request
             .get(steamUrl, function(err, response, body) {
                 //throw an error if the steam id cannot be found
                 if (err) throw err;
-                console.log('HERE SECOND', body);
+                
                 if (!err && response.statusCode === 200) {
                     let locals = JSON.parse(body);
                     
@@ -60,7 +60,7 @@ app.route('/')
                         //with the return data add them to the mediaContent array and return the json
                         async.map(urls, gd.getGameData, function(err, results) {
                             if (err) throw err;
-                            console.log('HERE third', results);
+                            
                             for(let i=0; i<results.length; i++){
                                 gameData.mediaContent.push(JSON.parse(results[i]));
                             }
