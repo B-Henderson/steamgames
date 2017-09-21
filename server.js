@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 //post retrieve the data from the apis
 app.route('/')
     .get(function(req, res) {
-        res.status(200).send('Hello World!');
+        res.sendStatus(200).send('Hello World!');
     })
     .post(function(req, res) {
         //initialize the return object
@@ -64,7 +64,7 @@ app.route('/')
                             for(let i=0; i<results.length; i++){
                                 gameData.mediaContent.push(JSON.parse(results[i]));
                             }
-                            res.json(gd.mapData(gameData, games.appid));
+                            res.sendStatus(200).json(gd.mapData(gameData, games.appid));
                         });
                     });
                 }
