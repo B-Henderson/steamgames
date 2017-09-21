@@ -64,7 +64,7 @@ app.route('/')
                             for(let i=0; i<results.length; i++){
                                 gameData.mediaContent.push(JSON.parse(results[i]));
                             }
-                            res.sendStatus(200).json(gd.mapData(gameData, games.appid));
+                            res.json(gd.mapData(gameData, games.appid));
                         });
                     });
                 }
