@@ -80,7 +80,7 @@ app.route('/google60c020d4bb10c34d.html')
 
 
 
-//create a server and listen to port 8080
-app.listen(8080, function() {
-    console.log('initialised on port 8080');
+//create a server and listen to port 80
+app.listen(80, function() {
+    console.log('initialised on port 80');
 });
