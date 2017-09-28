@@ -16,10 +16,10 @@ jobs:
           paths:
             - ./node_modules
 
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: steam-random
-    commands: 
-      - git push git@heroku.com:steamgames.git master
+    deployment:
+      staging:
+        branch: master
+        heroku:
+          appname: steam-random
+        commands: 
+          - git push git@heroku.com:steamgames.git master
