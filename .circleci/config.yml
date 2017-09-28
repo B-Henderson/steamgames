@@ -19,11 +19,11 @@ jobs:
       - add_ssh_keys:
           fingerprints: "be:83:09:0d:87:90:69:fb:37:b6:78:f3:62:67:e3:24"
       - deploy:
-        name: deploy master to heroku
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master"]; then
-            git push heroku master            
-            heroku ps:scale web=1
-            heroku run node server.js
-          fi
+          name: deploy master to heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master"]; then
+              git push heroku master            
+              heroku ps:scale web=1
+              heroku run node server.js
+            fi
         
