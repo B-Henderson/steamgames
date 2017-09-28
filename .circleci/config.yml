@@ -21,9 +21,7 @@ jobs:
       - deploy:
           name: deploy master to heroku
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master"]; then
               git push heroku master            
               heroku ps:scale web=1
               heroku run node server.js
-            fi
         
