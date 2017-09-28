@@ -16,6 +16,9 @@ jobs:
       - run:
           name: install-npm
           command: sudo npm install
+      - run: 
+          name: run server
+          command: nodemon server.js
 deployment:
   staging:
     branch: master
