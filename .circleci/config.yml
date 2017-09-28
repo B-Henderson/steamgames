@@ -1,9 +1,11 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/steamgames
     docker:
       - image: circleci/node:8.0.0
     steps:
+      - checkout
       - run:
           name: ls
           command: ls -a
