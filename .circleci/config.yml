@@ -10,9 +10,9 @@ jobs:
           name: ls
           command: ls -a
       # - checkout
-      # - run:
-      #     name: update-npm
-      #     command: 'sudo npm install -g npm@latest'
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
       - run:
           name: install-npm
           command: sudo npm install
