@@ -5,6 +5,9 @@ jobs:
     docker:
       - image: circleci/node:8.0.0
     steps:
+      - run:
+        name: ls
+        command: ls -a
       # - checkout
       # - run:
       #     name: update-npm
