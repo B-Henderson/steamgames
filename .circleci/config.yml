@@ -1,10 +1,26 @@
-deployment:
-  staging:
-    branch: master
-    heroku:
-    appname: steam-random
-
-
-        
-
-
+version: 2
+jobs:
+  build:
+    working_directory: ~/steamgames
+    docker:
+      - image: circleci/node:8.0.0
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - run:
+          deployment:
+            staging:
+              branch: master
+              heroku:
+                appname: steam-random
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
