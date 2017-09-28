@@ -15,9 +15,8 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-
-    deployment:
-      staging:
+      - deploy:
+        staging:
         branch: master
         heroku:
           appname: steam-random
