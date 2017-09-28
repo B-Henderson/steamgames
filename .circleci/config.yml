@@ -15,11 +15,13 @@ jobs:
           name: install-npm-wee
           command: npm install
       - run:
-          deployment:
-            staging:
-              branch: master
-              heroku:
-                appname: steam-random
+          name: deployment
+          command:
+            deployment:
+              staging:
+                branch: master
+                heroku:
+                  appname: steam-random
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
