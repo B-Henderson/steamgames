@@ -15,14 +15,11 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      - run:
-          name: install nodemon
-          command: sudo npm install -g nodemon
-      - run: 
-          name: run server
-          command: nodemon server.js
+
 deployment:
   staging:
     branch: master
     heroku:
       appname: steam-random
+    commands: 
+      - git push git@heroku.com:steamgames.git master
