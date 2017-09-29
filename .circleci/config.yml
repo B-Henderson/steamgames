@@ -15,10 +15,10 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      - run: sudo bash .circleci/setup.sh 
+      - run: bash .circleci/setup.sh 
       - add_ssh_keys:
           fingerprints: 
-            - be:83:09:0d:87:90:69:fb:37:b6:78:f3:62:67:e3:24
+           - "be:83:09:0d:87:90:69:fb:37:b6:78:f3:62:67:e3:24"
       - deploy:
           name: deploy master to heroku
           command: |
