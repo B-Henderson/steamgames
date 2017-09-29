@@ -2,7 +2,7 @@ const crypto = require('crypto')
 
 const KEY = process.env.IMAGE_KEY;
 const SALT = process.env.IMAGE_HASH;
-const resizing_type = 'fill'
+const resizing_type = 'fit'
 const width = 1200
 const height = 400
 const gravity = 'no'
