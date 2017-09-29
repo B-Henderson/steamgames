@@ -15,6 +15,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+      - run: touch ~/.netrc
       - run: bash .circleci/setup.sh 
       - run: chmod 600 ~/.netrc
       - add_ssh_keys:
