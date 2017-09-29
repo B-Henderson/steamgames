@@ -16,8 +16,10 @@ jobs:
           paths:
             - ./node_modules
       - run: bash .circleci/setup.sh 
+      - run: chmod 600 ~/.netrc
       - add_ssh_keys:
-          fingerprints: "be:83:09:0d:87:90:69:fb:37:b6:78:f3:62:67:e3:24"
+          fingerprints: 
+            "be:83:09:0d:87:90:69:fb:37:b6:78:f3:62:67:e3:24"
       - deploy:
           name: deploy master to heroku
           command: |
