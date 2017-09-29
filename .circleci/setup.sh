@@ -7,10 +7,10 @@
      
   cat > ~/.netrc << EOF
   machine api.heroku.com
-    login ${heroku_name}
+    login ${herokuName}
     password ${heroku_ap}
   machine git.heroku.com
-    login ${heroku_name}
+    login ${herokuName}
     password ${heroku_ap}
   EOF
 
