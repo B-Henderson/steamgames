@@ -1,6 +1,4 @@
-  # # Add heroku.com to the list of known hosts
-  ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts
-  #!/bin/bash
+ #!/bin/bash
   git remote add heroku https://git.heroku.com/steam-random.git
   wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
   sudo mkdir -p /usr/local/lib /usr/local/bin
@@ -16,5 +14,5 @@
     password $heroku_ap
   EOF
 
-  # Add heroku.com to the list of known hosts
+  # # Add heroku.com to the list of known hosts
   ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts
