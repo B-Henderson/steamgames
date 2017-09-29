@@ -1,4 +1,5 @@
 'use strict'
+//  process.env.YOUTUBE_APIKEY process.env.TWITCH_APIKEY
 const apikey = process.env.STEAM_APIKEY;
 const express = require('express')
 const app = express()
@@ -6,7 +7,7 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const async = require("async");
 const youtubeKey = process.env.YOUTUBE_APIKEY;
-const twitchKey = process.env.TWITCH_APIKEY;
+const twitchKey =  process.env.TWITCH_APIKEY;
 var port = process.env.PORT || 8080;
 const getApp = require(__dirname + "/scripts/getRandomApp");
 const extendObj = require(__dirname+"/scripts/extendObj");
@@ -30,7 +31,7 @@ app.use(function(req, res, next) {
 //post retrieve the data from the apis
 app.route('/')
     .get(function(req, res) {
-        res.sendStatus(200).send('Hello World!');
+        res.send('Hello World!');
     })
     .post(function(req, res) {
         //initialize the return object
@@ -44,6 +45,7 @@ app.route('/')
         
         request
             .get(steamUrl, function(err, response, body) {
+                console.log(steamUrl);
                 //throw an error if the steam id cannot be found
                 if (err) throw err;
                 
