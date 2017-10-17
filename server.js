@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+console.log('hello world');
 //base url / on get return webpage (NYI)
 //post retrieve the data from the apis
 app.route('/')
